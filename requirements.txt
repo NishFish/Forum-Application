@@ -1,0 +1,7 @@
+flask
+flask-socketio==5.3.0
+python-engineio 
+python-socketio
+pymongo~=4.0.1
+bcrypt
+secure

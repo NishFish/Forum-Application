@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="/template_styling/login.css">
+
+</div>
+<div class="banner">
+    <a href="https://www.buffalo.edu/" target="_blank"><img src="../images/logo.png" alt="logo" width="150" height="150" class="banner-image"></a>
+    <a class="reference" href="/" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">About Us</a>
+    <a class="reference" href="https://catalog.buffalo.edu/courses/" target="_blank" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">UB Course Catalog </a>
+    <a class="reference" href="/" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">Features</a>
+    <a class="reference" href="/" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">Home</a>
+    <h2 class="site_title">CourseXplore</h2>
+</div>
+
+
+<body>
+<div class="box"><
+    <div class="container">
+        <div class="forms">
+            <div class="form login">
+                <span class="title">Login</span>
+                <form action="/login" id="login_form" method="get">
+                    <div class="input-field">
+                        <input type="text" placeholder="Enter your username" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="password" placeholder="Enter your password" required>
+                        <i class="uil uil-lock icon"></i>
+                    </div>
+
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="logCheck">
+                            <label for="logCheck" class="text">Remember me</label>
+                        </div>
+
+                        <a href="/reset" class="text">Forgot password?</a>
+                    </div>
+
+                    <div class="input-field button">
+                        <input type="submit" form="login_form" value="Login">
+                    </div>
+                </form>
+
+                <div class="login-signup">
+                        <span class="text">Not a member?
+                            <a href="/register_page" class="text signup-link">Signup Now</a>
+                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="../images/temporary.png" alt="temp" class="temp_image">
+    <h2 style = "position:relative; left: -150px; top: 190px; color: white">Connect with your coursemates.</h2>
+</div>
+</body>
+</html>

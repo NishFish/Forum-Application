@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="/template_styling/register.css">
+
+</div>
+<div class="banner">
+    <a href="https://www.buffalo.edu/" target="_blank"><img src="images/logo.png" alt="logo" width="150" height="150" class="banner-image"></a>
+    <a class="reference" href="/" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">About Us</a>
+    <a class="reference" href="https://catalog.buffalo.edu/courses/" target="_blank" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">UB Course Catalog </a>
+    <a class="reference" href="/" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">Features</a>
+    <a class="reference" href="/" style="text-decoration:none" onmouseover="style='text-decoration:underline'" onmouseout="style='text-decoration:none'">Home</a>
+    <h2 class="site_title">CourseXplore</h2>
+</div>
+
+
+<body>
+<div class="box"><
+    <div class="container">
+        <div class="forms">
+            <div class="form login">
+                <span class="title">Register</span>
+                <form action="/register" method="POST">
+                    <div class="input-field">
+                        <input type="text" placeholder="Enter your @buffalo.edu email" required name="email">
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" placeholder="Choose a username" required name="username" id="user">
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="password" placeholder="Enter your password" required name="password" id="pass">
+                        <i class="uil uil-lock icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="password" placeholder="Confirm your password" required name="password_confirm" id="pass_2">
+                        <i class="uil uil-lock icon"></i>
+                    </div>
+
+                    <div class="input-field button">
+                        <input type="submit" value="Sign Up">
+                    </div>
+                </form>
+
+                <div class="login-signup">
+                       <span class="text">Already a member?
+                              <a href="/" class="text login-link">Login Now</a>
+                       </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
