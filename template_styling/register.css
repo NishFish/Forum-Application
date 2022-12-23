@@ -28,6 +28,11 @@
     margin-right: 30px;
 }
 
+.registered{
+    text-align:center;
+    margin-top:-700px;
+}
+
 .site_title{
     float: right;
     color: white;

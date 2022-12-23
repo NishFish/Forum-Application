@@ -2,4 +2,5 @@ from pymongo import MongoClient
 
 client = MongoClient("mongo")
 db = client['db']
-auction_db = db['users']
+users_pass_db = db['users'] #stores username and hashed passwords
+email_db = db['emails'] #stores emails and usernames

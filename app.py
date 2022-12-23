@@ -7,6 +7,7 @@ import random
 import string
 import hashlib
 import database_store
+import sys
 
 app = Flask(__name__)
 
@@ -40,12 +41,38 @@ def logo():
 
 @app.route('/login') #login, but not yet complete
 def login():
+    if request.method == 'GET':
+        username = request.form['username']
+        password = request.form['password']
+        username_store = database_store.users_pass_db.find_one({'username': username})
+        print("store", username_store, flush=True)
+        #check if username is in username_store. If it us, check if the passwords match then proceed 
+        if username_store:
+            salt = bcrypt.gensalt()
+            pass_hash = bcrypt.hashpw(password.encode(), salt)
+            check_pass = bcrypt.checkpw(password.encode(), username_store['password'])
+            #must generate an authentication token
+
     return render_template('index.html', mimetype="text/html")
 
-@app.route('/register') #register, but not yet complete
+@app.route('/register', methods=('GET', 'POST')) #register, but not yet complete
 def register():
-    print(request)
-    return render_template('index.html', mimetype="text/html")
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        password_confirm = request.form['password_confirm']
+
+
+        if password == password_confirm: #also need to check if email/username are not taken or registered already. Also need to check if email is a buffalo email and send verification email
+            salt = bcrypt.gensalt()
+            pass_hash = bcrypt.hashpw(password.encode(), salt)
+            database_store.users_pass_db.insert_one({'username': username, 'pass_hash': pass_hash}) #insert into database
+            database_store.email_db.insert_one({'username': username, 'email': email})# insert into database
+            return render_template('authentication/successfull_register.html', mimetype="text/html"), {"Refresh": "3; url=/"} #redirects to main page
+
+
+
 
 @app.route('/template_styling/register.css') #register css
 def register_css():
