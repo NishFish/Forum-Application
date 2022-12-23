@@ -53,7 +53,7 @@ def login():
                 return render_template('home.html', mimetype="text/html")  # go here if password is incorrect
             #must generate an authentication token
 
-        incorrect = "The username or password you entered are Incorrect"
+        incorrect = "The username or password you entered is Incorrect"
         return render_template('index.html', incorrect=incorrect, mimetype="text/html") #go here if password is incorrect
 
 @app.route('/register', methods=('GET', 'POST')) #register, but not yet complete
@@ -64,14 +64,25 @@ def register():
         password = request.form['password']
         password_confirm = request.form['password_confirm']
 
+        username = database_store.users_pass_db.find_one({"username": username})
+        if username is not None:
+            incorrect = "This username already exists"  # do the same thing with render template if the username already exists
+            return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
-        if password == password_confirm: #also need to check if email/username are not taken or registered already. Also need to check if email is a buffalo email and send verification email
-            salt = bcrypt.gensalt()
-            pass_hash = bcrypt.hashpw(password.encode(), salt)
-            database_store.users_pass_db.insert_one({'username': username, 'pass_hash': pass_hash}) #insert into database
-            database_store.email_db.insert_one({'username': username, 'email': email})# insert into database
-            return render_template('authentication/successfull_register.html', mimetype="text/html"), {"Refresh": "3; url=/"} #redirects to main page
+        email = database_store.email_db.find_one({"email": email})
+        if email is not None:
+            incorrect = "An account is already registered with this email"  # do the same thing with render template if the username already exists
+            return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
+        if password != password_confirm: #also need to check if email/username are not taken or registered already. Also need to check if email is a buffalo email and send verification email
+            incorrect = "Passwords do not match"  # do the same thing with render template if the username already exists
+            return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
+
+        salt = bcrypt.gensalt()
+        pass_hash = bcrypt.hashpw(password.encode(), salt)
+        database_store.users_pass_db.insert_one({'username': username, 'pass_hash': pass_hash}) #insert into database
+        database_store.email_db.insert_one({'username': username, 'email': email})# insert into database
+        return render_template('authentication/successfull_register.html', mimetype="text/html"), {"Refresh": "3; url=/"} #redirects to main page
 
 
 
