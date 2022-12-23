@@ -50,6 +50,7 @@ def login():
             salt = bcrypt.gensalt()
             pass_hash = bcrypt.hashpw(password.encode(), salt)
             check_pass = bcrypt.checkpw(password.encode(), username_store['pass_hash'])
+            print(check_pass, flush=True)
             #must generate an authentication token
 
     return render_template('index.html', mimetype="text/html")
