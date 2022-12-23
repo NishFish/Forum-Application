@@ -45,15 +45,16 @@ def login():
         username = request.form['username']
         password = request.form['password']
         username_store = database_store.users_pass_db.find_one({"username": username})
-        #check if username is in username_store. If it us, check if the passwords match then proceed 
-        if username_store:
+
+        if username_store: #check if username is in username_store. If it us, check if the passwords match then proceed
             salt = bcrypt.gensalt()
-            pass_hash = bcrypt.hashpw(password.encode(), salt)
             check_pass = bcrypt.checkpw(password.encode(), username_store['pass_hash'])
-            print(check_pass, flush=True)
+            if check_pass: #if passwords match
+                return render_template('home.html', mimetype="text/html")  # go here if password is incorrect
             #must generate an authentication token
 
-    return render_template('index.html', mimetype="text/html")
+        incorrect = "The username or password you entered are Incorrect"
+        return render_template('index.html', incorrect=incorrect, mimetype="text/html") #go here if password is incorrect
 
 @app.route('/register', methods=('GET', 'POST')) #register, but not yet complete
 def register():
