@@ -39,18 +39,17 @@ def temporary_image():
 def logo():
     return send_file('images/logo.png')
 
-@app.route('/login') #login, but not yet complete
+@app.route('/login', methods=('GET', 'POST')) #login, but not yet complete
 def login():
-    if request.method == 'GET':
+    if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        username_store = database_store.users_pass_db.find_one({'username': username})
-        print("store", username_store, flush=True)
+        username_store = database_store.users_pass_db.find_one({"username": username})
         #check if username is in username_store. If it us, check if the passwords match then proceed 
         if username_store:
             salt = bcrypt.gensalt()
             pass_hash = bcrypt.hashpw(password.encode(), salt)
-            check_pass = bcrypt.checkpw(password.encode(), username_store['password'])
+            check_pass = bcrypt.checkpw(password.encode(), username_store['pass_hash'])
             #must generate an authentication token
 
     return render_template('index.html', mimetype="text/html")
