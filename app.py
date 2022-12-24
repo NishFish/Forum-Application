@@ -42,7 +42,7 @@ def logo():
 @app.route('/login', methods=('GET', 'POST')) #login, but not yet complete
 def login():
     if request.method == 'POST':
-        username = request.form['username']
+        username = request.form['username'].lower()
         password = request.form['password']
         username_store = database_store.users_pass_db.find_one({"username": username})
 
@@ -59,13 +59,13 @@ def login():
 @app.route('/register', methods=('GET', 'POST')) #register, but not yet complete
 def register():
     if request.method == 'POST':
-        email = request.form['email']
-        username = request.form['username']
+        email = request.form['email'].lower()
+        username = request.form['username'].lower()
         password = request.form['password']
         password_confirm = request.form['password_confirm']
 
-        username = database_store.users_pass_db.find_one({"username": username})
-        if username is not None:
+        username_store = database_store.users_pass_db.find_one({"username": username})
+        if username_store is not None:
             incorrect = "This username already exists"  # do the same thing with render template if the username already exists
             return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
