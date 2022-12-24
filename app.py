@@ -69,8 +69,8 @@ def register():
             incorrect = "This username already exists"  # do the same thing with render template if the username already exists
             return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
-        email = database_store.email_db.find_one({"email": email})
-        if email is not None:
+        email_store = database_store.email_db.find_one({"email": email})
+        if email_store is not None:
             incorrect = "An account is already registered with this email"  # do the same thing with render template if the username already exists
             return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
