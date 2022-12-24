@@ -50,7 +50,7 @@ def login():
             salt = bcrypt.gensalt()
             check_pass = bcrypt.checkpw(password.encode(), username_store['pass_hash'])
             if check_pass: #if passwords match
-                return render_template('home.html', mimetype="text/html")  # go here if password is incorrect
+                return redirect('/home', code=302)  # go here if password is incorrect
             #must generate an authentication token
 
         incorrect = "The username or password you entered is Incorrect"
@@ -64,14 +64,18 @@ def register():
         password = request.form['password']
         password_confirm = request.form['password_confirm']
 
-        username_store = database_store.users_pass_db.find_one({"username": username})
-        if username_store is not None:
-            incorrect = "This username already exists"  # do the same thing with render template if the username already exists
+        if len(email) > 12 and email[-12:] != '@buffalo.edu':
+            incorrect = "You must register with an @buffalo.edu email"  # do the same thing with render template if the username already exists
             return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
         email_store = database_store.email_db.find_one({"email": email})
         if email_store is not None:
             incorrect = "An account is already registered with this email"  # do the same thing with render template if the username already exists
+            return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
+
+        username_store = database_store.users_pass_db.find_one({"username": username})
+        if username_store is not None:
+            incorrect = "This username already exists"  # do the same thing with render template if the username already exists
             return render_template('authentication/register.html', incorrect=incorrect, mimetype="text/html")  # go here if password is incorrect
 
         if password != password_confirm: #also need to check if email/username are not taken or registered already. Also need to check if email is a buffalo email and send verification email
@@ -98,7 +102,13 @@ def register_page():
 def reset():
     return render_template('authentication/reset_password.html', mimetype="text/html")
 
+@app.route('/home') #reset password
+def home():
+    return render_template('home/home.html', mimetype="text/html")
 
+@app.route('/template_styling/home.css') #reset password
+def home_css():
+    return send_file('template_styling/home.css', mimetype="text/css")
 
 
 if __name__ == '__main__':
